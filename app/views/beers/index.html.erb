@@ -17,8 +17,8 @@
       <tr>
         <td><%= link_to beer.name, beer %></td>
         <td><%= beer.style %></td>
-
-
+	<td><%= link_to beer.brewery.name, beer.brewery %></td>
+	
         <td><%= link_to 'Edit', edit_beer_path(beer) %></td>
         <td><%= link_to 'Destroy', beer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -28,10 +28,10 @@
 
 <p> Outo bugi jonka takia ei voi näyttää panimon nimeä, jolle olut kuuluu vaikka
     tietokannassa ei ole yhtään olutta, jota vastaavaa panimoa ei olisi määritelty
-    (ja siis ko. panimo ei olisi olemassa).</p>
+    (ja siis ko. panimo ei olisi olemassa).<br>
 
-<td><link_to, beer.brewery, beer.brewery</td>
 
+</p>
 
 <br>
 
