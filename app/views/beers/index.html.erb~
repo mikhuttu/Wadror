@@ -26,13 +26,6 @@
   </tbody>
 </table>
 
-<p> Outo bugi jonka takia ei voi näyttää panimon nimeä, jolle olut kuuluu vaikka
-    tietokannassa ei ole yhtään olutta, jota vastaavaa panimoa ei olisi määritelty
-    (ja siis ko. panimo ei olisi olemassa).<br>
-
-
-</p>
-
 <br>
 
 <%= link_to 'New Beer', new_beer_path %>
