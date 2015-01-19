@@ -1,0 +1,12 @@
+Brewery.create name:"Brewdog", year:2007
+brewdog = Brewery.last
+punk = Beer.new name:"Punk IPA", style:"IPA"
+brewdog.beers << punk
+nanny = Beer.new name:"Nanny State", style:"lowalcohol"
+brewdog.beers << nanny
+
+punk.ratings.create score:7
+punk.ratings.create score:12
+new_rat = Rating.create score:13
+nanny.ratings << new_rat
+nanny.ratings.create score:15

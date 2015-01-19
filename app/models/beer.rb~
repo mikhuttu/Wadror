@@ -1,2 +1,23 @@
 class Beer < ActiveRecord::Base
+  belongs_to :brewery
+  has_many :ratings
+
+  def average_rating
+    sum = self.ratings.inject(0) { |s, rating| s + rating.score }
+    1.0 * sum / self.ratings.count
+  end
+
+
+  def better_average_ratingmethod
+    1.0 * self.ratings.sum(:score) / self.ratings.count
+  end
+
+
+ # sum = 0
+ #   self.ratings.each do |rating|
+ #     sum+= rating.score
+ #   end
+ #   1.0 * sum / self.ratings.count
+ # end
+
 end
