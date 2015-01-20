@@ -7,4 +7,8 @@ class Beer < ActiveRecord::Base
     1.0 * sum / self.ratings.count
   end
 
+  def to_s
+    self.name + " - " + self.brewery.name
+  end
+
 end

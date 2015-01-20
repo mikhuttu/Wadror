@@ -55,5 +55,9 @@ group :development, :test do
 
   ruby '2.2.0'
 
+  group :development, :test do
+    gem "better_errors"
+  end
+
 end
 
