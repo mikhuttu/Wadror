@@ -5,6 +5,12 @@
 
 <ul>
  <% @ratings.each do |rating| %>
-   <li> <%= rating.beer.name %> <%= rating.score %> </li>
+   <li> 
+     <%= rating.beer.name %>, score: <%= rating.score %>
+     <%= link_to 'Destroy', rating, method: :delete, data: { confirm: 'Are you sure?' } %> 
+   </li> 
  <% end %>
 </ul>
+
+<br>
+<%= link_to 'New Rating', new_rating_path %>
