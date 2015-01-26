@@ -1,4 +1,4 @@
-<h2>List of ratings</h2>
+<h1>Listing Ratings</h1>
 
 <p>Number of ratings:
 <%= @ratings.count %> </p>
@@ -6,8 +6,8 @@
 <ul>
  <% @ratings.each do |rating| %>
    <li> 
-     <%= rating.beer.name %>, score: <%= rating.score %>
-     <%= link_to 'Destroy', rating, method: :delete, data: { confirm: 'Are you sure?' } %> 
+     <%= rating.beer.name %>, score: <%= rating.score,  %>
+     <%= link_to rating.user.username, rating.user %> 
    </li> 
  <% end %>
 </ul>
