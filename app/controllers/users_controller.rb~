@@ -6,6 +6,8 @@ class UsersController < ApplicationController
   end
 
   def show
+    @ratings = @user.ratings
+    @clubs = @user.beer_clubs
   end
 
   def new

@@ -4,9 +4,22 @@
 
 <% if not @user.ratings.empty? %>
   <p>has made <%= pluralize(@user.ratings.count, 'rating') %>, average <%= @user.average_rating %> </p>
+<% end %>
+  
+<% if not @clubs.empty? %>
+  <p>Member of the following clubs:
+  
+  <% @clubs.each do |club| %>
+  <ul>
+    <li> <%= link_to club.name, club %> </li>
+  </ul>
 
+  <% end %>
+
+<% end %>
+
+<% if not @user.ratings.empty? %>
   <h2>ratings</h2>
-
 
   <ul>
     <% @user.ratings.each do |rating| %>
@@ -19,4 +32,4 @@
 
 <% end %>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Edit', edit_user_path(@user) %>

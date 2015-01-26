@@ -28,6 +28,7 @@ class BeersController < ApplicationController
         format.html { redirect_to beers_path, notice: 'Beer was successfully created.' }
         format.json { render :show, status: :created, location: beers_path }
       else
+        load_form
         format.html { render :new }
         format.json { render json: @beer.errors, status: :unprocessable_entity }
       end
@@ -41,6 +42,7 @@ class BeersController < ApplicationController
         format.html { redirect_to @beer, notice: 'Beer was successfully updated.' }
         format.json { render :show, status: :ok, location: @beer }
       else
+        load_form
         format.html { render :edit }
         format.json { render json: @beer.errors, status: :unprocessable_entity }
       end

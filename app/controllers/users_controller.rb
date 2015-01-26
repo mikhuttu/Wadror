@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 
   def show
     @ratings = @user.ratings
+    @clubs = @user.beer_clubs
   end
 
   def new
@@ -56,6 +57,6 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:username)
+      params.require(:user).permit(:username, :password, :password_confirmation)
     end
 end
