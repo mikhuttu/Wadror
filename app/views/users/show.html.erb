@@ -24,11 +24,16 @@
     <% @user.ratings.each do |rating| %>
       <li> 
         <%= rating.beer.name %>, score: <%= rating.score %>
-        <%= link_to 'Destroy', rating, method: :delete, data: { confirm: 'Are you sure?' } %> 
+        
+        <% if @user == current_user %>
+          <%= link_to 'Destroy', rating, method: :delete, data: { confirm: 'Are you sure?' } %> 
+        <% end %>
       </li> 
     <% end %>
   </ul>
-
 <% end %>
 
-<%= link_to 'Edit', edit_user_path(@user) %>
+<% if current_user == @user %>
+  <%= link_to 'Edit', edit_user_path(@user) %>
+  <%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
