@@ -1,6 +1,6 @@
 class BeersController < ApplicationController
   before_action :set_beer, only: [:show, :edit, :update, :destroy]
-  before_action :load_form, only: [:new, :edit]
+  before_action :set_breweries_and_styles_for_template, only: [:new, :edit]
 
   def index
     @beers = Beer.all
@@ -28,7 +28,8 @@ class BeersController < ApplicationController
         format.html { redirect_to beers_path, notice: 'Beer was successfully created.' }
         format.json { render :show, status: :created, location: beers_path }
       else
-        load_form
+        set_breweries_and_styles_for_template
+
         format.html { render :new }
         format.json { render json: @beer.errors, status: :unprocessable_entity }
       end
@@ -63,7 +64,7 @@ class BeersController < ApplicationController
       @beer = Beer.find(params[:id])
     end
 
-    def load_form
+    def set_breweries_and_styles_for_template
       @breweries = Brewery.all
       @styles = ["Weizen", "Lager", "Pale Ale", "IPA", "Porter"]
     end

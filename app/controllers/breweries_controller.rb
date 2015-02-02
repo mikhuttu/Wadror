@@ -25,7 +25,7 @@ class BreweriesController < ApplicationController
     @brewery = Brewery.new(brewery_params)
 
     respond_to do |format|
-      if validate_year and @brewery.save
+      if @brewery.save
         format.html { redirect_to @brewery, notice: 'Brewery was successfully created.' }
         format.json { render :show, status: :created, location: @brewery }
       else
@@ -61,19 +61,6 @@ class BreweriesController < ApplicationController
     def set_brewery
       @brewery = Brewery.find(params[:id])
     end
-
-    def validate_year
-      if not @brewery.year.nil? and @brewery.year <= Time.now.year
-        true
-      elsif @brewery.year.nil?
-        @brewery.errors.add(:year, "cannot be null.")
-        false
-      else
-        @brewery.errors.add(:year, "not valid.")
-        false
-      end
-    end
-    
 
     def brewery_params
       params.require(:brewery).permit(:name, :year)
