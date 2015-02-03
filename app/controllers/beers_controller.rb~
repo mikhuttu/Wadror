@@ -43,7 +43,8 @@ class BeersController < ApplicationController
         format.html { redirect_to @beer, notice: 'Beer was successfully updated.' }
         format.json { render :show, status: :ok, location: @beer }
       else
-        load_form
+        set_breweries_and_styles_for_template
+        
         format.html { render :edit }
         format.json { render json: @beer.errors, status: :unprocessable_entity }
       end
