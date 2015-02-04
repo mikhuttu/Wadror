@@ -20,37 +20,47 @@ class User < ActiveRecord::Base
     ratings.order(score: :desc).limit(1).first.beer
   end
 
-#  def favorite_style
-#    return nil if beers.empty?
-#    
-#    beers.order(style: :desc)
-#    style = beers.first.style
-#    best_average = beers.first.average_rating;
-#    self_average;
-#
-#    beers.each |beer| do
-#      if beer.style == style
-#        if self_average.nil?
-#          self_average = beer.average_rating
-#        else
-#          self_average = 
-#        
-#      end
-#    end
-#  end
+  def favorite_style
+    styles = beers.map { |beer| beer.style }.uniq        
+    return nil if styles.empty?
+   
+     best_average = 0.0
+     best_style = styles.first
 
-# def beers_styles
- #   styles
-    
- #   beers.map do |beer|
-    #  styles << beer.style
+     styles.each do |style|
+       style_ratings = ratings.select { |rating| rating.beer.style == style }
+       sum = style_ratings.inject(0) { |s, rating| s + rating.score }
+       avg = 1.0 * sum / style_ratings.count
 
-     # if styles.nil? or not styles.include?(beer.style)
-        
-     # end
-#    end
-    
-  #  styles
-#end
+       if (avg > best_average)
+         best_average = avg
+         best_style = style
+       end
+     end
+
+     best_style
+  end
+
+  def favorite_brewery
+     breweries = beers.map { |beer| beer.brewery }.uniq
+     return nil if breweries.empty?
+     
+     best_average = 0.0
+     best_brewery = breweries.first
+
+     breweries.each do |brewery|
+       brewery_ratings = ratings.select { |rating| rating.beer.brewery == brewery }
+       sum = brewery_ratings.inject(0) { |s, rating| s + rating.score }
+       avg = 1.0 * sum / brewery_ratings.count
+
+       if (avg > best_average)
+         best_average = avg
+         best_brewery = brewery
+       end
+     end
+
+     best_brewery
+  end
+
 
 end
