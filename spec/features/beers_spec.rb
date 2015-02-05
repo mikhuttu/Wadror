@@ -5,7 +5,7 @@ describe "Beer" do
     FactoryGirl.create :brewery, name:"Koff", year: 1857
 
     FactoryGirl.create :user
-    sign_in(username "Pekka", password "Foobar1", password_confirmation "Foobar1")
+    sign_in(username: "Pekka", password: "Foobar1", password_confirmation: "Foobar1")
   end
    
   it "can be added to DB with a valid name" do
