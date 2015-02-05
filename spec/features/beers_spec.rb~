@@ -3,10 +3,13 @@ require 'rails_helper'
 describe "Beer" do
   before :each do
     FactoryGirl.create :brewery, name:"Koff", year: 1857
-  end
 
+    User.create :user
+    sign_in(username "Pekka", password "Foobar1", password_confirmation "Foobar1")
+  end
+   
   it "can be added to DB with a valid name" do
-    visit new_beer_path    
+    visit new_beer_path
 
     fill_in('beer[name]', with:'olut')
     select('Weizen', from:'beer[style]')
