@@ -34,8 +34,8 @@ describe "Rating" do
     visit ratings_path
 
     expect(page).to have_content 'Number of ratings: 2'
-    expect(page).to have_content user.name
-    expect(page).to have_content beer.name
+    expect(page).to have_content user.username
+    expect(page).to have_content beer1.name
   end
 
 end

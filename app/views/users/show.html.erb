@@ -3,10 +3,11 @@
 <h1><%= @user.username %></h1>
 
 <% if not @user.ratings.empty? %>
-  <p>has made <%= pluralize(@user.ratings.count, 'rating') %>, average <%= @user.average_rating %> </p>
+  <p>has made <%= pluralize(@user.ratings.count, 'rating') %>, average: <%= @user.average_rating %></p>
+ 
+      <p>Favorite Style: <strong> <%= @user.favorite_style %> </strong><br>
+         Favorite Brewery: <strong> <%= @user.favorite_brewery.name %> </strong></p>
 
-  <p>Favorite Style: <strong> <%= @user.favorite_style %> </strong> <br>
-     Favorite Brewery: <strong> <%= @user.favorite_brewery.name %> </strong> </p>
 <% end %>
   
 <% if not @clubs.empty? %>
@@ -25,7 +26,7 @@
 
   <ul>
     <% @user.ratings.each do |rating| %>
-      <li> 
+      <li>
         <%= rating.beer.name %>, score: <%= rating.score %>
         
         <% if @user == current_user %>

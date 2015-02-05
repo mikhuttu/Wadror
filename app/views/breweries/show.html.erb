@@ -23,4 +23,7 @@
 
 </p>
 
-<%= link_to 'Edit', edit_brewery_path(@brewery) %>
+<% if not current_user.nil? %>
+  <td><%= link_to 'Edit', edit_brewery_path(@brewery) %></td> |
+  <td><%= link_to 'Destroy the brewery', @brewery, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<% end %>

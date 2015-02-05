@@ -17,9 +17,10 @@
 
 <% if @beer.ratings.empty? %>
 <% else %>
-  <p>Has <%= @beer.ratings.count %> <%= pluralize(@beer.ratings.count, 'rating') %>, 
-	 average <%= @beer.average_rating %> </p>
+  <p>Has <%= pluralize(@beer.ratings.count, 'rating') %>, average <%= @beer.average_rating %> </p>
 <% end %>
 
-
-<%= link_to 'Edit', edit_beer_path(@beer) %>
+<% if not current_user.nil? %>
+  <%= link_to 'Edit', edit_beer_path(@beer) %> |
+  <%= link_to 'Destroy', @beer, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>

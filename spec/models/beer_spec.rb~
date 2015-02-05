@@ -1,5 +1,9 @@
 require 'rails_helper'
 
+BeerClub
+BeerClubsController
+MembershipsController
+
 RSpec.describe Beer, :type => :model do
   
   describe "is saved" do
