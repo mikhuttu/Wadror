@@ -1,10 +1,15 @@
 language: ruby
-
 rvm:
- - 2.0.0
-
+- 2.2.0
 script:
- - bundle exec rake db:migrate --trace
- - RAILS_ENV=test bundle exec rake db:migrate --trace
- - bundle exec rake db:test:prepare
- - bundle exec rspec -fd spec/
+- bundle exec rake db:migrate --trace
+- RAILS_ENV=test bundle exec rake db:migrate --trace
+- bundle exec rake db:test:prepare
+- bundle exec rspec -fd spec/
+deploy:
+  provider: heroku
+  api_key:
+    secure: dkhW+UF4ra6pk/YobsetkXyrHKW+EVF3lRGZ6igyWitCG5TSV00Tmx3/LgrgkznCgQJ+ieH7Nmre00946y685X5AoNCfhbI9lffxcWaydaje78ha0eB2Ctgl9KwgbYoGpiZq2iAoReRZa/Y8ql6pIMANRJS94G4iHvKSz4pQnVI=
+  app: vast-cove-8290
+  on:
+    repo: mikhuttu/Wadror

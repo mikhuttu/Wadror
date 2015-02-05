@@ -1,2 +1,5 @@
 Heroku: https://vast-cove-8290.herokuapp.com/
+
 Travis: https://travis-ci.org/mikhuttu/Wadror/
+
+Codeclimate: https://codeclimate.com/github/mikhuttu/Wadror
