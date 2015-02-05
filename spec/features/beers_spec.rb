@@ -4,7 +4,7 @@ describe "Beer" do
   before :each do
     FactoryGirl.create :brewery, name:"Koff", year: 1857
 
-    User.create :user
+    FactoryGirl.create :user
     sign_in(username "Pekka", password "Foobar1", password_confirmation "Foobar1")
   end
    
