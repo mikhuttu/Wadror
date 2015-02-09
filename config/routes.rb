@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get '/signup', to: 'users#new'
   get '/signin', to: 'sessions#new'
 
+  post '/places', to:'places#search'
+  
   delete '/signout', to: 'sessions#destroy'  
 
   resources :breweries
@@ -13,6 +15,7 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :delete]
   resources :memberships, only: [:new, :create, :delete]
   resources :beer_clubs
+  resources :places, only: [:index, :show]
 
 end
 

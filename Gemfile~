@@ -31,6 +31,8 @@ gem 'spring'
 gem 'rb-readline'
 gem 'therubyracer', platforms: :ruby
 
+gem 'httparty'
+
 ruby '2.2.0'
 
 group :production do
@@ -49,4 +51,5 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'simplecov', require: false
+  gem 'webmock'
 end

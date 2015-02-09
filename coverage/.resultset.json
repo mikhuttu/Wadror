@@ -126,7 +126,7 @@
         1,
         null,
         1,
-        109,
+        115,
         72,
         null,
         null,
@@ -597,6 +597,68 @@
         null,
         null
       ],
+      "/home/tktl-csfs/fs2/home/mikhuttu/ratebeer/lib/beermapping_api.rb": [
+        1,
+        null,
+        1,
+        7,
+        null,
+        7,
+        11,
+        null,
+        null,
+        null,
+        1,
+        null,
+        4,
+        null,
+        4,
+        null,
+        4,
+        4,
+        null,
+        3,
+        3,
+        5,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/home/tktl-csfs/fs2/home/mikhuttu/ratebeer/app/models/place.rb": [
+        1,
+        1,
+        1,
+        null,
+        1,
+        6,
+        null,
+        null
+      ],
+      "/home/tktl-csfs/fs2/home/mikhuttu/ratebeer/app/controllers/places_controller.rb": [
+        1,
+        1,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        null,
+        null,
+        1,
+        3,
+        null,
+        3,
+        1,
+        null,
+        2,
+        2,
+        null,
+        null,
+        null,
+        null
+      ],
       "/home/tktl-csfs/fs2/home/mikhuttu/ratebeer/app/controllers/ratings_controller.rb": [
         1,
         null,
@@ -631,6 +693,6 @@
         null
       ]
     },
-    "timestamp": 1423142024
+    "timestamp": 1423499441
   }
 }
