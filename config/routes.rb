@@ -12,8 +12,8 @@ Rails.application.routes.draw do
   resources :beers
   resources :ratings, only: [:index, :new, :create, :destroy]
   resources :users
-  resource :session, only: [:new, :create, :delete]
-  resources :memberships, only: [:new, :create, :delete]
+  resource :session, only: [:new, :create]
+  resources :memberships, only: [:new, :create, :destroy]
   resources :beer_clubs
   resources :places, only: [:index, :show]
 

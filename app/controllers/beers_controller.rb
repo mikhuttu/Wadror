@@ -9,6 +9,8 @@ class BeersController < ApplicationController
 
 
   def show
+    @rating = Rating.new
+    @rating.beer = @beer
   end
 
 

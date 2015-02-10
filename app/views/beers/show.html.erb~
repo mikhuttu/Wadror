@@ -20,7 +20,20 @@
   <p>Has <%= pluralize(@beer.ratings.count, 'rating') %>, average <%= @beer.average_rating %> </p>
 <% end %>
 
-<% if not current_user.nil? %>
+<% if current_user %>
+
+  <br>
+
+  <h4>Give a rating:</h4>
+
+  <%= form_for(@rating) do |f| %>
+    <%= f.hidden_field :beer_id %>
+    Score: <%= f.number_field :score %>
+    <%= f.submit %>
+  <% end %>
+
+  <br>
+
   <%= link_to 'Edit', edit_beer_path(@beer) %> |
-  <%= link_to 'Destroy', @beer, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Destroy the beer', @beer, method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>

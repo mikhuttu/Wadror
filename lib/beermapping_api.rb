@@ -1,7 +1,7 @@
 class BeermappingApi
   
   def self.places_in(city)
-    return [] if city.empty?
+    return [] if city.nil? or city.empty?
 
     city = city.downcase
     Rails.cache.fetch(city, expires_in: 24.hours) { fetch_places_in(city) } 

@@ -7,6 +7,7 @@ class BeerClubsController < ApplicationController
   end
 
   def show
+    set_membership
     @members = @beer_club.members
   end
 
@@ -59,4 +60,14 @@ class BeerClubsController < ApplicationController
     def beer_club_params
       params.require(:beer_club).permit(:name, :founded, :city)
     end
+
+    def set_membership
+
+      if current_user and current_user.beer_clubs.include?(@beer_club)
+        @membership = Membership.find_by(user_id: current_user.id, beer_club_id: @beer_club.id)
+     else
+        @membership = Membership.new
+        @membership.beer_club = @beer_club
+     end
+   end
 end
