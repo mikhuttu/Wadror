@@ -48,11 +48,11 @@ class MembershipsController < ApplicationController
   end
 
   def destroy
-    @beer_club = @membership.beer_club
+    club = @membership.beer_club.name
 
     @membership.destroy
     respond_to do |format|
-      format.html { redirect_to @beer_club, notice: 'Membership in ' + @beer_club.name + ' ended.' }
+      format.html { redirect_to current_user, notice: 'Membership in ' + club + ' ended.' }
       format.json { head :no_content }
     end
   end
