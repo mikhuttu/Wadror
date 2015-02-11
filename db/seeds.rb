@@ -5,7 +5,7 @@ b4 = Brewery.create name:"Laitila", year:1995
 
 s1 = Style.create name:"Euro Pale Lager", description: "Similar to the Munich Helles story, many European countries reacted to the popularity of early pale lagers by brewing their own. Hop flavor is significant and of noble varieties, bitterness is moderate, and both are backed by a solid malt body and sweetish notes from an all-malt base."
 
-s2 = Style.create name:"Dunkelweizen", description: "Similar to a Hefeweizen, these southern Germany wheat beers are brewed as darker versions (Dunkel means "dark") with deliciously complex malts and a low balancing bitterness. Most are brown and murky (from the yeast). The usual clove and fruity (banana) characters will be present, some may even taste like banana bread."
+s2 = Style.create name:"Dunkelweizen", description: "Similar to a Hefeweizen, these southern Germany wheat beers are brewed as darker versions (Dunkel means 'dark') with deliciously complex malts and a low balancing bitterness. Most are brown and murky (from the yeast). The usual clove and fruity (banana) characters will be present, some may even taste like banana bread."
 
 s3 = Style.create name:"American Pale Ale (APA)", description: "Of British origin, this style is now popular worldwide and the use of local ingredients, or imported, produces variances in character from region to region. Generally, expect a good balance of malt and hops. Fruity esters and diacetyl can vary from none to moderate, and bitterness can range from lightly floral to pungent. American versions tend to be cleaner and hoppier, while British tend to be more malty, buttery, aromatic and balanced."
 
