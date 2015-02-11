@@ -77,9 +77,12 @@ def create_user_breweries_beers_and_ratings
   brew1 = FactoryGirl.create :brewery, name:"Brew1", year:1600
   brew2 = FactoryGirl.create :brewery, name:"Brew2", year:1700
 
-  b1 = FactoryGirl.create :beer, name: "Fasu", style: "Style2", brewery: brew1
-  b2 = FactoryGirl.create :beer, name: "Kukko", style: "Style1", brewery: brew1
-  b3 = FactoryGirl.create :beer, name: "Kana", style: "Style2", brewery: brew2
+  style1 = FactoryGirl.create :style, name:"Style1"
+  style2 = FactoryGirl.create :style, name:"Style2"
+
+  b1 = FactoryGirl.create :beer, name: "Fasu", style: style2, brewery: brew1
+  b2 = FactoryGirl.create :beer, name: "Kukko", style: style1, brewery: brew1
+  b3 = FactoryGirl.create :beer, name: "Kana", style: style2, brewery: brew2
 
   r1 = FactoryGirl.create :rating, score: 15, beer: b1
   r2 = FactoryGirl.create :rating, score: 26, beer: b2

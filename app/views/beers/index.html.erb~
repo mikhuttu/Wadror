@@ -16,13 +16,14 @@
     <% @beers.each do |beer| %>
       <tr>
         <td><%= link_to beer.name, beer %></td>
-        <td><%= beer.style %></td>
+        <td><%= link_to beer.style.name, beer.style %></td>
 	<td><%= link_to beer.brewery.name, beer.brewery %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Beer', new_beer_path %>
+<% if not current_user.nil? %>
+  <br>
+  <%= link_to 'New Beer', new_beer_path %>
+<% end %>

@@ -6,6 +6,11 @@ FactoryGirl.define do
     password_confirmation "Foobar1"
   end
 
+  factory :style do
+    name "Euro Pale Ale"
+    description "Hyvää olutta"
+  end
+
   factory :brewery do
     name "anonymous"
     year 1900
@@ -14,7 +19,7 @@ FactoryGirl.define do
   factory :beer do
     name "anonymous"
     brewery
-    style "Lager"
+    style
   end
 
   factory :rating do

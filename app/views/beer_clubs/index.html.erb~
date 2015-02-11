@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Beer clubs</h1>
+<h1>Listing Beer clubs</h1>
 
 <table>
   <thead>
@@ -23,7 +23,7 @@
   </tbody>
 </table>
 
-<% if not current.user.nil? %>
+<% if not current_user.nil? %>
   <br>
   <%= link_to 'Create a new club', new_beer_club_path %>
 <% end %>

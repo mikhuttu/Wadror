@@ -3,16 +3,17 @@ require 'rails_helper'
 describe "Beer" do
   before :each do
     FactoryGirl.create :brewery, name:"Koff", year: 1857
+    FactoryGirl.create :style
 
     FactoryGirl.create :user
     sign_in(username: "Pekka", password: "Foobar1", password_confirmation: "Foobar1")
   end
    
-  it "can be added to DB with a valid name" do
+  it "can be added to DB with valid name, style and brewery" do
     visit new_beer_path
 
     fill_in('beer[name]', with:'olut')
-    select('Weizen', from:'beer[style]')
+    select('Euro Pale Ale', from:'beer[style_id]')
     select('Koff', from:'beer[brewery_id]')
 
     expect{
@@ -25,7 +26,7 @@ describe "Beer" do
     visit new_beer_path    
 
     fill_in('beer[name]', with:'')
-    select('Weizen', from:'beer[style]')
+    select('Euro Pale Ale', from:'beer[style_id]')
     select('Koff', from:'beer[brewery_id]')
 
     click_button "Create Beer"

@@ -7,7 +7,7 @@ MembershipsController
 RSpec.describe Beer, :type => :model do
   
   describe "is saved" do
-    it "if has a name and a style" do
+    it "if has a name" do
       beer = FactoryGirl.create :beer
       
       expect(beer.valid?).to be(true)
@@ -18,13 +18,7 @@ RSpec.describe Beer, :type => :model do
   describe "is not saved" do
     
     it "without a name" do
-      beer = Beer.create style:"Lager"
-      expect(beer.valid?).to be(false)
-      expect(Beer.count).to eq(0)
-    end
-
-    it "without a style" do
-      beer = Beer.create name:"Koff"
+      beer = Beer.create name:""
       expect(beer.valid?).to be(false)
       expect(Beer.count).to eq(0)
     end
