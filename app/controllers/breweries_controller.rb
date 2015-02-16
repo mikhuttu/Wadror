@@ -3,7 +3,8 @@ class BreweriesController < ApplicationController
   before_action :ensure_that_signed_in, except: [:index, :show]
 
   def index
-    @breweries = Brewery.all
+    @active_breweries = Brewery.active
+    @retired_breweries = Brewery.retired
   end
 
  
@@ -62,14 +63,6 @@ class BreweriesController < ApplicationController
     end
 
     def brewery_params
-      params.require(:brewery).permit(:name, :year)
-    end
-
-    def authenticate
-      admin_accounts = { "admin" => "secret", "pekka" => "beer", "arto" => "foobar"}
-   
-      authenticate_or_request_with_http_basic do |username, password|
-        admin_accounts.has_key?(username) && admin_accounts[username] == password
-      end
+      params.require(:brewery).permit(:name, :year, :active)
     end
 end

@@ -18,7 +18,4 @@
   <p>Has <%= pluralize(@style.ratings.count, 'rating') %>, average <%= @style.average_rating %> </p>
 <% end %>
 
-<% if current_user %>
-  <%= link_to 'Edit', edit_style_path(@style) %> |
-  <%= link_to 'Destroy the style', @style, method: :delete, data: { confirm: 'Are you sure?' } %>
-<% end %>
+<%= edit_and_destroy_buttons(@style) %>

@@ -38,6 +38,5 @@
 <% end %>
 
 <% if current_user == @user %>
-  <%= link_to 'Edit', edit_user_path(@user) %>
-  <%= link_to 'Delete account', @user, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= edit_and_destroy_buttons(@user) %>
 <% end %>

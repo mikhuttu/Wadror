@@ -5,7 +5,7 @@
 <% if not @user.ratings.empty? %>
   <p>has made <%= pluralize(@user.ratings.count, 'rating') %>, average: <%= @user.average_rating %></p>
  
-      <p>Favorite Style: <strong> <%= @user.favorite_style %> </strong><br>
+      <p>Favorite Style: <strong> <%= @user.favorite_style.name %> </strong><br>
          Favorite Brewery: <strong> <%= @user.favorite_brewery.name %> </strong></p>
 
 <% end %>
@@ -38,6 +38,5 @@
 <% end %>
 
 <% if current_user == @user %>
-  <%= link_to 'Edit', edit_user_path(@user) %>
-  <%= link_to 'Delete account', @user, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= edit_and_destroy_buttons(@user) %>
 <% end %>

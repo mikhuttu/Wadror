@@ -2,7 +2,7 @@
 
 <h1>Listing Beer clubs</h1>
 
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Name</th>
@@ -23,7 +23,7 @@
   </tbody>
 </table>
 
-<% if not current_user.nil? %>
+<% if current_user %>
   <br>
-  <%= link_to 'Create a new club', new_beer_club_path %>
+  <%= link_to 'Create a new club', new_beer_club_path, class:'btn btn-primary' %>
 <% end %>

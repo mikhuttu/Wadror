@@ -33,11 +33,17 @@ gem 'therubyracer', platforms: :ruby
 
 gem 'httparty'
 
+gem 'bootstrap-sass'
+
 ruby '2.2.0'
 
 group :production do
   gem 'pg'
   gem 'rails_12factor'
+end
+
+group :development do
+  gem 'rails_layout'
 end
 
 group :development, :test do
