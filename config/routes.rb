@@ -8,7 +8,10 @@ Rails.application.routes.draw do
   
   delete '/signout', to: 'sessions#destroy'  
 
-  resources :breweries
+  resources :breweries do
+    post 'toggle-activity', on: :member
+  end
+
   resources :beers
   resources :ratings, only: [:index, :new, :create, :destroy]
   resources :users

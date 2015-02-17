@@ -1,7 +1,12 @@
 class RatingsController < ApplicationController
+  before_action :ensure_that_signed_in, only: [:create]
   
   def index
-    @ratings = Rating.all
+    @top_beers = Beer.top 3
+    @top_breweries = Brewery.top 3
+    @top_styles = Style.top 3
+    @most_active_users = User.top 3
+    @recent_ratings = Rating.recent
   end
 
   def new
@@ -12,9 +17,7 @@ class RatingsController < ApplicationController
   def create
     @rating = Rating.new params.require(:rating).permit(:score, :beer_id)
         
-    if current_user.nil?
-      redirect_to signin_path, notice: 'you should be signed in'
-    elsif @rating.save
+    if @rating.save
       current_user.ratings << @rating
       redirect_to user_path current_user
     else

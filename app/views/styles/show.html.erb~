@@ -15,8 +15,7 @@
 <% end %>
 
 <% if not @style.ratings.empty?%>
-  <p>Has <%= pluralize(@style.ratings.count, 'rating') %>, average <%= @style.average_rating %> </p>
+  <p>Has <%= pluralize(@style.ratings.count, 'rating') %>, average <%= round(@style.average_rating) %> </p>
 <% end %>
 
 <%= edit_and_destroy_buttons(@style) %>
-<% end %>

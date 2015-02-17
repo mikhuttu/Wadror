@@ -15,52 +15,56 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
+  def self.top(n)
+    sorted_by_rating = User.all.sort_by{ |u| -(u.ratings.count||0) }
+
+    i = 0
+    arr = []
+    
+    sorted_by_rating.each do |user|
+      if i < n
+        arr << user
+        i = i + 1
+      end
+    end
+    
+    arr
+  end
+
   def favorite_beer
     return nil if ratings.empty?
     ratings.order(score: :desc).limit(1).first.beer
   end
 
-  def favorite_style
-    styles = beers.map { |beer| beer.style }.uniq        
-    return nil if styles.empty?
-   
-     best_average = 0.0
-     best_style = styles.first
-
-     styles.each do |style|
-       style_ratings = ratings.select { |rating| rating.beer.style == style }
-       sum = style_ratings.inject(0) { |s, rating| s + rating.score }
-       avg = 1.0 * sum / style_ratings.count
-
-       if (avg > best_average)
-         best_average = avg
-         best_style = style
-       end
-     end
-
-     best_style
-  end
-
   def favorite_brewery
-     breweries = beers.map { |beer| beer.brewery }.uniq
-     return nil if breweries.empty?
-     
-     best_average = 0.0
-     best_brewery = breweries.first
-
-     breweries.each do |brewery|
-       brewery_ratings = ratings.select { |rating| rating.beer.brewery == brewery }
-       sum = brewery_ratings.inject(0) { |s, rating| s + rating.score }
-       avg = 1.0 * sum / brewery_ratings.count
-
-       if (avg > best_average)
-         best_average = avg
-         best_brewery = brewery
-       end
-     end
-
-     best_brewery
+    return nil if ratings.empty?
+    brewery_ratings = rated_breweries.inject([]) { |set, brewery| set << [brewery, brewery_average(brewery) ] }
+    brewery_ratings.sort_by{ |r| r.last }.last.first
   end
 
+  def favorite_style
+    return nil if ratings.empty?
+    style_ratings = rated_styles.inject([]) { |set, style| set << [style, style_average(style) ] }
+    style_ratings.sort_by{ |r| r.last }.last.first
+  end
+
+
+  def rated_styles
+    ratings.map{ |r| r.beer.style }.uniq
+  end
+
+  def style_average(style)
+    ratings_of_style = ratings.select{ |r| r.beer.style == style }
+    ratings_of_style.inject(0.0) { |sum, r| sum + r.score} / ratings_of_style.count
+  end
+
+  def rated_breweries
+    ratings.map{ |r| r.beer.brewery}.uniq
+  end
+
+  def brewery_average(brewery)
+    ratings_of_brewery = ratings.select{ |r| r.beer.brewery == brewery }
+    ratings_of_brewery.inject(0.0){ |sum, r| sum + r.score} / ratings_of_brewery.count
+  end
 
 end

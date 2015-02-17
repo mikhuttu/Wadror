@@ -5,10 +5,7 @@ class Rating < ActiveRecord::Base
   validates :score, numericality: { greater_than_or_equal_to: 1,
                                     less_than_or_equal_to: 50,
                                     only_integer: true }
-  validates :beer, required: true
 
-  def to_s
-    "tekstiesitys"
-  end
+  scope :recent, -> { order('updated_at DESC').limit(5) }
 
 end

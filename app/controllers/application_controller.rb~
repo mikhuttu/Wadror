@@ -1,17 +1,21 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  # määritellään, että metodi current_user tulee käyttöön myös näkymissä
-  helper_method :current_user
-  helper_method :to_hash
+  # määritellään, että metodit tulevat käyttöön myös näkymissä
+  helper_method :current_user, :admin
 
   def current_user
     return nil if session[:user_id].nil?
     User.find(session[:user_id])
   end
 
-  def to_hash
+  def admin
+    return false if session[:user_id].nil?
+    current_user.admin
+  end
 
+  def ensure_that_admin
+    redirect_to "/", notice:'You do not have the permission to do this.' if not admin
   end
 
   def ensure_that_signed_in

@@ -11,4 +11,19 @@ class Brewery < ActiveRecord::Base
   scope :active, -> { where active: true }
   scope :retired, -> { where active: [nil,false] }
 
+  def self.top(n)
+    sorted_by_rating = Brewery.all.sort_by{ |b| -(b.average_rating||0) }
+
+    i = 0
+    arr = []
+    
+    sorted_by_rating.each do |brewery|
+      if i < n
+        arr << brewery
+        i = i + 1
+      end
+    end
+    
+    arr
+  end
 end

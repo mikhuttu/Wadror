@@ -6,8 +6,6 @@ class Rating < ActiveRecord::Base
                                     less_than_or_equal_to: 50,
                                     only_integer: true }
 
-  def to_s
-    "tekstiesitys"
-  end
+  scope :recent, -> { order('updated_at DESC').limit(5) }
 
 end

@@ -14,4 +14,20 @@ class Beer < ActiveRecord::Base
     self.name + " - " + self.style.name + " - " + self.brewery.name
   end
 
+  def self.top(n)
+    sorted_by_rating = Beer.all.sort_by{ |b| b.average_rating }
+
+    i = 0
+    arr = []
+    
+    sorted_by_rating.each do |beer|
+      if i < n
+        arr << beer
+        i = i + 1
+      end
+    end
+    
+    arr
+  end
+
 end

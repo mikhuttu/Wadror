@@ -1,5 +1,5 @@
 class BreweriesController < ApplicationController
-  before_action :set_brewery, only: [:show, :edit, :update, :destroy]
+  before_action :set_brewery, only: [:show, :edit, :update, :destroy, :toggle_activity]
   before_action :ensure_that_signed_in, except: [:index, :show]
 
   def index
@@ -56,6 +56,14 @@ class BreweriesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def toggle_activity
+    @brewery.update_attribute :active, (not @brewery.active)
+
+    new_status = @brewery.active? ? "active" : "retired"
+    redirect_to :back, notice:"Brewery activity status changed to #{new_status}."
+  end
+
 
   private
     def set_brewery
