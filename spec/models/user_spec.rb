@@ -32,8 +32,8 @@ RSpec.describe User, :type => :model do
     end
 
     it "and with two ratings, has the correct average rating" do
-      user.ratings << FactoryGirl.create :rating, score: 11
-      user.ratings << FactoryGirl.create :rating, score: 20
+      user.ratings << FactoryGirl.create (:rating, score: 11)
+      user.ratings << FactoryGirl.create (:rating, score: 20)
 
       expect(user.ratings.count).to eq(2)
       expect(user.average_rating).to eq(15.5)

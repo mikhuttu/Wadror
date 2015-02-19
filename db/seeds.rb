@@ -1,7 +1,7 @@
-br1 = Brewery.create name:"Koff", year:1897
-br2 = Brewery.create name:"Malmgard", year:2001
-br3 = Brewery.create name:"Weihenstephaner", year:1042
-br4 = Brewery.create name:"Laitila", year:1995
+br1 = Brewery.create name:"Koff", year: 1897, active: true
+br2 = Brewery.create name:"Malmgard", year: 2001, active: true
+br3 = Brewery.create name:"Weihenstephaner", year: 1042, active: true
+br4 = Brewery.create name:"Laitila", year: 1995, active: true
 
 s1 = Style.create name:"Euro Pale Lager", description: "Similar to the Munich Helles story, many European countries reacted to the popularity of early pale lagers by brewing their own. Hop flavor is significant and of noble varieties, bitterness is moderate, and both are backed by a solid malt body and sweetish notes from an all-malt base."
 

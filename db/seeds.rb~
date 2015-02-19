@@ -46,4 +46,4 @@ BeerClub.create name:"Kumpulan Kumoojat", founded:1903, city:"Helsinki"
 BeerClub.create name:"Vallilan Hiiva", founded:1857, city:"Helsinki"
 BeerClub.create name:"Maatilan Kukko", founded:1675, city:"Sauvo"
 
-User.create username:"admin", password:"A123", password_confirmation:"A123"
+User.create username:"admin", password:"A123", password_confirmation:"A123", active: true, admin: true
