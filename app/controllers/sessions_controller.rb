@@ -1,16 +1,18 @@
 class SessionsController < ApplicationController
   def new
-    if not current_user.nil?
-      redirect_to '/', notice: "You're already signed in."
-    end
+    redirect_to '/', notice: "You're already signed in." if current_user
   end
 
   def create
     user = User.find_by username: params[:username]
 
     if user && user.authenticate(params[:password])
-      session[:user_id] = user.id
-      redirect_to user, notice: "Welcome back!"
+      if user.active
+        session[:user_id] = user.id
+        redirect_to user, notice: "Welcome back!"
+      else
+        redirect_to :back, notice: "Your account is frozen, please contact admin"
+      end
     else
       redirect_to :back, notice: "Username and/or password mismatch"
     end
@@ -18,7 +20,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to "/" # :root doesn't work
+    redirect_to "/", notice: "Session ended."
   end
 
 end

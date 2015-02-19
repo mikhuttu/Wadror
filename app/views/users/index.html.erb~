@@ -2,7 +2,7 @@
 
 <h1>Listing Users</h1>
 
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Username</th>
@@ -14,6 +14,10 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= link_to user.username, user %></td>
+        
+        <% if admin and not user.active %>
+          <td><button type="button" class="btn btn-primary" class="disabled">account frozen</button></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

@@ -12,9 +12,13 @@ Rails.application.routes.draw do
     post 'toggle-activity', on: :member
   end
 
+  resources :users do
+    post 'toggle-activity', on: :member
+  end
+
   resources :beers
   resources :ratings, only: [:index, :new, :create, :destroy]
-  resources :users
+  
   resource :session, only: [:new, :create]
   resources :memberships, only: [:new, :create, :destroy]
   resources :beer_clubs

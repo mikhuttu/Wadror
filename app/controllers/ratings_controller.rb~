@@ -1,5 +1,6 @@
 class RatingsController < ApplicationController
   before_action :ensure_that_signed_in, only: [:create]
+  before_action :ensure_that_signed_in, only: [:destroy]
   
   def index
     @top_beers = Beer.top 3
@@ -28,7 +29,7 @@ class RatingsController < ApplicationController
 
   def destroy
     rating = Rating.find(params[:id])
-    rating.delete if current_user == rating.user
+    rating.delete if current_user == rating.user or current_user.admin
     redirect_to :back
   end
 end

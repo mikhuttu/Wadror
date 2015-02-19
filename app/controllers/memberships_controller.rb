@@ -1,5 +1,6 @@
 class MembershipsController < ApplicationController
   before_action :set_membership, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_that_signed_in, only: [:destroy]
 
   def index
     @memberships = Membership.all
@@ -50,7 +51,7 @@ class MembershipsController < ApplicationController
   def destroy
     club = @membership.beer_club.name
 
-    @membership.destroy
+    @membership.destroy if current_user == @membership.user or current_user.admin
     respond_to do |format|
       format.html { redirect_to current_user, notice: 'Membership in ' + club + ' ended.' }
       format.json { head :no_content }

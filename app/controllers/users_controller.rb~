@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :toggle_activity]
+  before_action :ensure_that_signed_in, only: [:edit, :update, :destroy]
+  before_action :ensure_that_admin, only: [:toggle_activity]
 
   def index
     @users = User.all
@@ -15,14 +17,13 @@ class UsersController < ApplicationController
   end
 
   def edit
-    if not @user == current_user
-      @users = User.all
-      render :index
-    end
+    redirect_to "/", notice:'You do not have the permission to edit this.' if not @user == current_user
   end
 
   def create
     @user = User.new(user_params)
+    @user.admin = false
+    @user.active = true
 
     respond_to do |format|
       if @user.save
@@ -64,12 +65,25 @@ class UsersController < ApplicationController
     end
   end
 
+  def toggle_activity
+    new_status = true
+    new_status = false if @user.active
+
+    @user.update_attribute :active, (new_status)
+
+    if new_status
+      redirect_to :back, notice:"User account status changed to active."
+    else
+      redirect_to :back, notice:"User account status changed to frozen."
+    end
+  end
+
   private
     def set_user
       @user = User.find(params[:id])
     end
 
     def user_params
-      params.require(:user).permit(:username, :password, :password_confirmation, :admin)
+      params.require(:user).permit(:username, :password, :password_confirmation, :admin, :active)
     end
 end

@@ -1,6 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<h1><%= @user.username %></h1>
+<h1>
+  <%= @user.username %>
+
+  <% if admin and not @user.active %>
+    <button type="button" class="btn btn-primary">account frozen</button>
+  <% end %>
+</h1>
 
 <% if not @user.ratings.empty? %>
   <p>has made <%= pluralize(@user.ratings.count, 'rating') %>, average: <%= round(@user.average_rating) %></p>
@@ -22,14 +28,14 @@
 <% end %>
 
 <% if not @user.ratings.empty? %>
-  <h2>ratings</h2>
+  <h2>Ratings</h2>
 
   <ul>
     <% @user.ratings.each do |rating| %>
       <li>
         <%= rating.beer.name %>, score: <%= rating.score %>
         
-        <% if @user == current_user %>
+        <% if @user == current_user or admin %>
           <%= link_to 'Destroy', rating, method: :delete, data: { confirm: 'Are you sure?' } %> 
         <% end %>
       </li> 
@@ -39,4 +45,13 @@
 
 <% if current_user == @user %>
   <%= edit_and_destroy_buttons(@user) %>
+<% end %>
+
+<% if admin and not current_user == @user %>
+  <% if @user.active %>
+    <%= link_to "froze account", toggle_activity_user_path(@user.id), method: :post, class: "btn btn-danger" %>
+  <% else %>
+    <%= link_to "reactivate account", toggle_activity_user_path(@user.id), method: :post, class: "btn btn-danger" %>
+  <% end %>
+
 <% end %>

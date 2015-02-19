@@ -10,8 +10,9 @@ class ApplicationController < ActionController::Base
   end
 
   def admin
-    return false if session[:user_id].nil?
-    current_user.admin
+    if current_user
+      current_user.admin
+    end
   end
 
   def ensure_that_admin
@@ -21,5 +22,4 @@ class ApplicationController < ActionController::Base
   def ensure_that_signed_in
     redirect_to signin_path, notice:'You should be signed in.' if current_user.nil?
   end
-
 end
