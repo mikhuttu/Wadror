@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
     ratings_of_item = ratings.select do |r|
       r.beer.send(category) == item
     end
-    ratings_of_item.map(&:score).sum / ratings_of_item.count
+    1.0 * ratings_of_item.map(&:score).sum / ratings_of_item.count
   end
 
 end

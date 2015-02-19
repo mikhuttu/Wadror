@@ -27,7 +27,7 @@ describe "Rating" do
   end
 
   it "are shown in the ratings -page" do
-    r1 = FactoryGirl.create :rating, score:13, beer:beer1 
+    r1 = FactoryGirl.create :rating, score:13, beer:beer1
     r2 = FactoryGirl.create :rating, score:16, beer:beer2
     
     user.ratings << r1
@@ -35,7 +35,7 @@ describe "Rating" do
 
     visit ratings_path
 
-    expect(page).to have_content 'Number of ratings: 2'
+    expect(page).to have_content 'Karhu 16.0 iso 3 13.0'
     expect(page).to have_content user.username
     expect(page).to have_content beer1.name
   end
