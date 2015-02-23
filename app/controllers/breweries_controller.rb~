@@ -1,10 +1,36 @@
 class BreweriesController < ApplicationController
   before_action :set_brewery, only: [:show, :edit, :update, :destroy, :toggle_activity]
-  before_action :ensure_that_signed_in, except: [:index, :show]
+  before_action :ensure_that_signed_in, except: [:index, :show, :nglist]
+  before_action :ensure_that_admin, only: [:destroy]
 
   def index
     @active_breweries = Brewery.active
     @retired_breweries = Brewery.retired
+
+    order = params[:order] || 'name'
+
+    if order == 'name'
+      @active_breweries = @active_breweries.sort_by{ |b| b.name }
+      @retired_breweries = @retired_breweries.sort_by{ |b| b.name }
+      
+      if session[:breweries_order] == 'name' # viimeksi kun käytiin sivulla, järjestettiin panimot nimen mukaan
+        if params[:order] # metodiin tultiin käymällä klikkaamassa breweries -sivulla 'Name' kenttää (eikä jostain muulta sivulta)
+          reverse_order
+        end
+      else
+        update_breweries_order(order)
+      end
+
+    elsif order == 'year'
+      @active_breweries = @active_breweries.sort_by{ |b| b.year }
+      @retired_breweries = @retired_breweries.sort_by{ |b| b.year }
+
+      if session[:breweries_order] == 'year'      
+        reverse_order
+      else
+        update_breweries_order(order)
+      end
+    end
   end
 
  
@@ -20,6 +46,8 @@ class BreweriesController < ApplicationController
   def edit
   end
 
+  def nglist
+  end
 
   def create
     @brewery = Brewery.new(brewery_params)
@@ -72,5 +100,15 @@ class BreweriesController < ApplicationController
 
     def brewery_params
       params.require(:brewery).permit(:name, :year, :active)
+    end
+
+    def update_breweries_order(order)
+      session[:breweries_order] = order
+    end
+
+    def reverse_order
+      session[:breweries_order] = nil
+      @active_breweries.reverse!
+      @retired_breweries.reverse!
     end
 end

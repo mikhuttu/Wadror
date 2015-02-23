@@ -9,26 +9,29 @@
 </h1>
 
 <% if not @user.ratings.empty? %>
-  <p>has made <%= pluralize(@user.ratings.count, 'rating') %>, average: <%= round(@user.average_rating) %></p>
- 
-      <p>Favorite Style: <strong> <%= @user.favorite_style.name %> </strong><br>
-         Favorite Brewery: <strong> <%= @user.favorite_brewery.name %> </strong></p>
-
+ <p>Favorite Beer: <strong> <%= @user.favorite_beer.name %> </strong><br>
+    Favorite Style: <strong> <%= @user.favorite_style.name %> </strong><br>
+    Favorite Brewery: <strong> <%= @user.favorite_brewery.name %> </strong></p>
 <% end %>
   
-<% if not @clubs.empty? %>
-  <p>Member of the following clubs:
-  
-  <ul>
-    <% @clubs.each do |club| %>
-      <li> <%= link_to club.name, club %> </li>
-    <% end %>
-  </ul>
+<h2>Beer clubs</h2>
 
+<% if not @member_of_clubs.empty? %>
+  <strong>member of</strong>
+  
+  <%= render 'beer_clubs', clubs: @member_of_clubs %>
 <% end %>
+
+<% if not @applied_to_clubs.empty? %>
+  <strong>applied membership of</strong>
+  
+  <%= render 'beer_clubs', clubs: @applied_to_clubs %>
+<% end %>
+
+<h2>Ratings</h2>
 
 <% if not @user.ratings.empty? %>
-  <h2>Ratings</h2>
+  <p>has made <%= pluralize(@user.ratings.count, 'rating') %>, average: <%= round(@user.average_rating) %></p>
 
   <ul>
     <% @user.ratings.each do |rating| %>

@@ -16,4 +16,16 @@ module ApplicationHelper
   def round(param)
     number_with_precision(param, precision: 1, significant: false)
   end
+
+  def current_user_membership_of(club)
+    membership_of(current_user, club)
+  end
+
+  def membership_of(user, club)
+    ship = nil
+    if user and user.beer_clubs.include?(club)
+      ship = Membership.find_by(user_id: user.id, beer_club_id: club.id)
+    end
+    ship
+  end
 end

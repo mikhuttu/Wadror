@@ -35,6 +35,10 @@ gem 'httparty'
 
 gem 'bootstrap-sass'
 
+gem 'jquery-turbolinks'
+
+gem 'rack-mini-profiler'
+
 ruby '2.2.0'
 
 group :production do
@@ -58,4 +62,6 @@ group :test do
   gem 'launchy'
   gem 'simplecov', require: false
   gem 'webmock'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner'
 end

@@ -9,7 +9,8 @@ class BeerClubsController < ApplicationController
 
   def show
     set_membership
-    @members = @beer_club.members
+    @confirmed_members = confirmed_members
+    @applied_members = applied_members
   end
 
   def new
@@ -24,6 +25,11 @@ class BeerClubsController < ApplicationController
 
     respond_to do |format|
       if @beer_club.save
+        new_membership
+        @membership.user = current_user
+        @membership.confirmed = true
+        @membership.save
+
         format.html { redirect_to @beer_club, notice: 'Beer club was successfully created.' }
         format.json { render :show, status: :created, location: @beer_club }
       else
@@ -53,6 +59,19 @@ class BeerClubsController < ApplicationController
     end
   end
 
+#  def activate
+#    set_membership #membership of current user
+#
+#    if @membership.confirmed
+#      @membership = Membership.find_by(user_id: params[:id], beer_club_id: @beer_club.id)
+#      @membership.update_attribute :confirmed, (true)
+#
+#      redirect_to :back, notice: @membership.user.username + " became a confirmed club member."
+#    else
+#      redirect_to :back, notice: "You don't have the permission to do this."
+#    end
+#  end
+
   private
     def set_beer_club
       @beer_club = BeerClub.find(params[:id])
@@ -67,8 +86,28 @@ class BeerClubsController < ApplicationController
       if current_user and current_user.beer_clubs.include?(@beer_club)
         @membership = Membership.find_by(user_id: current_user.id, beer_club_id: @beer_club.id)
      else
-        @membership = Membership.new
-        @membership.beer_club = @beer_club
+        new_membership
      end
+   end
+
+   def new_membership
+     @membership = Membership.new
+     @membership.beer_club = @beer_club
+   end
+
+   def confirmed_members
+     members = []
+     @beer_club.memberships.each do |ship|
+       members << ship.user if ship.confirmed
+     end
+     members
+   end
+
+   def applied_members
+     members = []
+     @beer_club.memberships.each do |ship|
+       members << ship.user if not ship.confirmed
+     end
+     members
    end
 end

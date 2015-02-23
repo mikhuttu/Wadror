@@ -4,12 +4,13 @@ class UsersController < ApplicationController
   before_action :ensure_that_admin, only: [:toggle_activity]
 
   def index
-    @users = User.all
+    @users = User.includes(:beers, :ratings).all
   end
 
   def show
     @ratings = @user.ratings
-    @clubs = @user.beer_clubs
+    @member_of_clubs = member_of_clubs
+    @applied_to_clubs = applied_to_clubs
   end
 
   def new
@@ -85,5 +86,21 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:username, :password, :password_confirmation, :admin, :active)
+    end
+
+    def member_of_clubs
+      clubs = []
+      @user.memberships.each do |ship|
+        clubs << ship.beer_club if ship.confirmed
+      end
+      clubs
+    end
+
+    def applied_to_clubs
+      clubs = []
+      @user.memberships.each do |ship|
+        clubs << ship.beer_club if not ship.confirmed
+      end
+      clubs
     end
 end

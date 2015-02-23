@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   get '/', to: 'breweries#index'
   get '/signup', to: 'users#new'
   get '/signin', to: 'sessions#new'
+  get '/beerlist', to:'beers#list'
+  get '/brewerylist', to:'breweries#nglist'
+  get '/ngbeerlist', to:'beers#nglist'
 
   post '/places', to:'places#search'
   
@@ -16,15 +19,16 @@ Rails.application.routes.draw do
     post 'toggle-activity', on: :member
   end
 
-  resources :beers
-  resources :ratings, only: [:index, :new, :create, :destroy]
-  
-  resource :session, only: [:new, :create]
-  resources :memberships, only: [:new, :create, :destroy]
-  resources :beer_clubs
-  resources :places, only: [:index, :show]
-  resources :styles
+  resources :memberships, only: [:new, :create, :destroy] do
+    post 'activate', on: :member
+  end
 
+  resources :beers
+  resources :styles
+  resources :ratings, only: [:index, :new, :create, :destroy]
+  resources :beer_clubs  
+  resource :session, only: [:new, :create]
+  resources :places, only: [:index, :show]
 end
 
 

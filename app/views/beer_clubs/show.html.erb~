@@ -4,15 +4,37 @@
 
 <p>Founded <%= @beer_club.founded %> in <%= @beer_club.city %> </p>
 
-<h2>Members</h2>
+<% if not @confirmed_members.empty? %>
+  <h2>Members</h2>
 
-<ul>
-  <% @beer_club.members.each do |member| %>
-    <li>
-      <%= link_to member.username, member %>
-    </li>
-  <% end %>
-</ul>
+  <ul>
+    <% @confirmed_members.each do |member| %>
+      <li>
+        <%= link_to member.username, member %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if not @applied_members.empty? %>
+  <h2>Outstanding applications</h2>
+
+  <ul>
+    <% @applied_members.each do |member| %>
+      <li>
+        <%= link_to member.username, member %>       
+        
+        <% @membership = current_user_membership_of(@beer_club) %>
+        <% if @membership and @membership.confirmed %>
+
+          <% @membership = membership_of(member, @beer_club) %>
+          <%= link_to 'Confirm', activate_membership_path(@membership.id), method: :post, class:'btn btn-primary' %>
+
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
 
 <% if current_user %>
 
