@@ -2,6 +2,8 @@ class BreweriesController < ApplicationController
   before_action :set_brewery, only: [:show, :edit, :update, :destroy, :toggle_activity]
   before_action :ensure_that_signed_in, except: [:index, :show, :nglist]
   before_action :ensure_that_admin, only: [:destroy]
+  before_action :clear_beerlist_from_cache, only: [:create, :update, :destroy, :toggle_activity]
+  before_action :skip_if_cached, only: [:index]
 
   def index
     @active_breweries = Brewery.active
@@ -92,6 +94,14 @@ class BreweriesController < ApplicationController
     redirect_to :back, notice:"Brewery activity status changed to #{new_status}."
   end
 
+  def clear_brewerylist_from_cache
+    ["brewerylist-name", "brewerylist-year"].each{ |f| expire_fragment(f) }
+  end
+
+  def skip_if_cached
+    @order = params[:order] || 'name'
+    return render :index if fragment_exist?( "brewerylist-#{@order}"  )
+  end
 
   private
     def set_brewery

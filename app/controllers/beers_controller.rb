@@ -3,6 +3,8 @@ class BeersController < ApplicationController
   before_action :set_breweries_and_styles_for_template, only: [:new, :edit]
   before_action :ensure_that_signed_in, except: [:index, :show, :list, :nglist]
   before_action :ensure_that_admin, only: [:destroy]
+  before_action :clear_beerlist_from_cache, only: [:create, :update, :destroy]
+  before_action :skip_if_cached, only: [:index]
 
   def index
     @beers = Beer.includes(:brewery, :style).all
@@ -14,7 +16,6 @@ class BeersController < ApplicationController
       when 'style' then @beers.sort_by{ |b| b.style.name }
     end
   end
-
 
   def show
     @rating = Rating.new
@@ -74,6 +75,15 @@ class BeersController < ApplicationController
       format.html { redirect_to beers_url, notice: 'Beer was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def clear_beerlist_from_cache
+    ["beerlist-name", "beerlist-brewery", "beerlist-style"].each{ |f| expire_fragment(f) }
+  end
+
+  def skip_if_cached
+    @order = params[:order] || 'name'
+    return render :index if fragment_exist?( "beerlist-#{@order}"  )
   end
 
   private
